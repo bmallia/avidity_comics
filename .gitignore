@@ -1,0 +1,6 @@
+##for virtual env
+env/
+
+.vscode/
+
+__pycache__/
