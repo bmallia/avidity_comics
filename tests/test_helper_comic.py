@@ -2,7 +2,7 @@ import os
 import collections
 import pytest
 
-from core.comicsApp.info import AuthSingleton
+from core.comicsApp.authentication import AuthSingleton
 from core.comicsApp.comics_helper import generate_hash
 
 @pytest.fixture
@@ -17,17 +17,17 @@ def test_singleton_ok(hash_service):
     auth = AuthSingleton(public_key=hash_service.publickey, private_key=hash_service.privatekey, timestamp=hash_service.timestamp, hash=hash_service.hash)
     assert auth
 
-def test_singleton_no_ts_parameter():
+def test_singleton_no_ts_parameter(hash_service):
    with pytest.raises(AttributeError):
         auth = AuthSingleton(public_key=hash_service.publickey, private_key=hash_service.privatekey, hash=hash_service.hash)
         assert auth
 
-def test_singleton_no_hash_parameter():
+def test_singleton_no_hash_parameter(hash_service):
     with pytest.raises(AttributeError):
         auth = AuthSingleton(public_key=hash_service.publickey, private_key=hash_service.privatekey, timestamp=hash_service.timestamp)
         assert auth
 
-def test_singletion_no_publickey_parameter():
+def test_singletion_no_publickey_parameter(hash_service):
     with pytest.raises(AttributeError):
         auth = AuthSingleton(private_key=hash_service.privatekey, timestamp=hash_service.timestamp, hash=hash_service.hash)
         assert auth    

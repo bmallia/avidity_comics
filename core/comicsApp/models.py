@@ -1,3 +1,27 @@
-from django.db import models
+from djongo import models
 
-# Create your models here.
+
+class Character(models.Model):
+
+    class Meta:
+        db_table = 'character'
+
+    _id=models.ObjectIdField()
+
+    name=models.CharField(max_length=255, default="")
+
+    description =models.TextField(default="")
+
+    attributionText = models.TextField(default="")
+
+    stories = models.JSONField(default=[]) 
+
+    def __str__(self):
+        return f"name: {self.name} description: {self.description} attributionText: {self.attributionText} stories: {self.stories}"
+
+    
+
+
+    
+    
+

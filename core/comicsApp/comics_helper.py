@@ -7,12 +7,12 @@ def generate_hash(private_key= None, public_key=None):
         Generate the hash thats is necessary to authentication in comics marvel service
 
     Args:
-        private_key ([type]): [ 
+        private_key ([type]):  
             private key generated in comics marvel's website. See the documentation http://developer.marvel.com/docs]]
             public_key ([type]): [public key genereted in comics marcel's website. See the documentation http://developer.marvel.com/docs]]
 
     Returns:
-        [tuple]: [the timstamp generated with the hash]
+        [tuple]: [the timstamp generated with the hash and the hash]
     """
 
     if not private_key:
