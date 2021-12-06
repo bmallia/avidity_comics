@@ -1,0 +1,76 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <title>Hero from Marvel's commics</title> 
+        <!-- PAGE INFO -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Marvel's product</title>
+        <style>
+            .cover img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                overflow: hidden;
+            }
+
+            .ctnFlex{
+                display: flex;
+                justify-content: space-between;
+            }
+
+            div.op1 {
+                width: 25%;
+                display: inline-block;
+                font-size: 2vw;
+                text-align: center;
+                padding: 5vw 0vw 5vw 0vw;
+                min-width:40vw;
+            }
+        
+            div.op2 {
+                width: 75%;
+                display: inline-block;
+                margin-right: 0vw;
+                font-size: 2vw;
+                text-align: center;
+                padding: 5vw 0vw 5vw 0vw;
+                min-width:40vw;
+            }
+        </style>
+    
+   </head>
+   
+   <body>
+       <h1>My favorite hero!</h1>
+        {% for char in characters %}
+            <h3>Hero's name:{{char.name}}</h3>
+            <div class="ctnFlex" >
+                <div class="op1">
+                    
+                    <span><img src="{{char.thumbnail}}"/> </span> 
+                </div>
+                <div class="op2" >
+                    <p><b>The story's description:</b> {{char.description}}</p>
+                </div>    
+
+            </div>
+
+           
+
+            {% for story in char.stories %}
+                    
+                <div class="cover">
+                    <span><img src="{{story.resourceURI}}/portrait_medium" alt="{{story.name}}"/> </span> 
+                </div>
+                    
+            {% endfor %}
+            
+            <p><b>Marvel attribution text:</b> {{char.attributionText}}  </p>
+
+        {% endfor %}
+  </body>
+
+</html>

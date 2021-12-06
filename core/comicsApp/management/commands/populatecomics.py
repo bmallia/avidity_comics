@@ -43,22 +43,29 @@ class Command(BaseCommand):
                 self.stdout.write("Connection erro while getting the character's mavel information")
                 exit(1)
             
+            if res1.status_code != 200:
+                self.stdout.write(f"Error while retriving data, status code {res1.status_code}")
+                exit(2)
+
+            
             data_json =  res1.json()
             pbar.update(100)
-            if data_json:
-                results = data_json['data']['results']
-                for result in results:
-                    char_filterd = Character.objects.filter(name=hero_name)
-                    if char_filterd.exists():
-                        char_filterd.update(description=result['description'], attributionText=data_json['attributionText'], stories=result['stories']['items'])
-                        self.stdout.write(f"Character updated!")
-                    else:
-                        character = Character(name=result["name"], description=result['description'], attributionText=data_json['attributionText'], stories=result['stories']['items'])
-                        character.save()     
-                        self.stdout.write(f"Character saved")
+            
+            results = data_json['data']['results']
+            for result in results:
+
+                char_filterd = Character.objects.filter(name=hero_name)
+                thumb = result['thumbnail']['path'] + '/portrait_xlarge.' + result['thumbnail']['extension']
+                if char_filterd.exists():
+                    char_filterd.update(description=result['description'], attributionText=data_json['attributionText'], stories=result['stories']['items'], thumbnail=thumb)
+                    self.stdout.write(f"Character updated!")
+                else:
+                    character = Character(name=result["name"], description=result['description'], attributionText=data_json['attributionText'], stories=result['stories']['items'], thumbnail=thumb)
+                    character.save()     
+                    self.stdout.write(f"Character saved")
                         
-                    time.sleep(0.1)
-                    pbar.update(int(100 / len(results)))
+                time.sleep(0.1)
+                pbar.update(int(100 / len(results)))
                     
             pbar.update(100)
             pbar.close()

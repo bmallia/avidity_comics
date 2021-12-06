@@ -1,3 +1,16 @@
 from django.shortcuts import render
+from core.comicsApp.models import Character
+import json
 
-# Create your views here.
+def list_heros(request):
+    characters = Character.objects.all()
+    
+    print(type(characters))
+    context = {
+        'characters': characters,
+    }
+
+    
+    
+
+    return render(request, 'commics-info.html', context)

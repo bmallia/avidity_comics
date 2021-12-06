@@ -16,8 +16,10 @@ class Character(models.Model):
 
     stories = models.JSONField(default=[]) 
 
+    thumbnail = models.CharField(max_length=500, default="")
+
     def __str__(self):
-        return f"name: {self.name} description: {self.description} attributionText: {self.attributionText} stories: {self.stories}"
+        return f"name: {self.name} description: {self.description} thumbnail: {self.thumbnail} attributionText: {self.attributionText} stories: {self.stories}"
 
     
 
