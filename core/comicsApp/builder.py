@@ -44,7 +44,7 @@ class CharacterBuilder(Builder):
     """
     def __init__(self, name, model=None, progress_bar=None):
         self.hero_name = name
-        self.characterModel = model
+        self.characterModel = Character()
         self.stories = set()
         self.character_ids = set()
         self.progress_bar = progress_bar
@@ -84,12 +84,12 @@ class CharacterBuilder(Builder):
 
             if char_filtered.exists():
                 char_filtered.update(description=result['description'], attributionText=self.data['attributionText'], stories=result['stories']['items'], thumbnail=thumb)
-                self.characterModel = char_filtered
+                ##self.characterModel = char_filtered
                 print(f"Character updated!")
             else:
                 character = Character(_id=result['id'], name=result["name"], description=result['description'], attributionText=self.data['attributionText'], thumbnail=thumb)
                 character.save()
-                self.characterModel = character     
+                ##self.characterModel = character     
                 print(f"Character saved")
         self.progress_bar.update(30)
     
@@ -126,8 +126,8 @@ class CharacterBuilder(Builder):
                     thumbnail = result['thumbnail']
                     path = f"{thumbnail['path']}/portrait_small.{thumbnail['extension']}"
                     characters_stores.append({"url": path, "name": result['name']})
-        if self.characterModel:      
-            self.characterModel.update(stories=characters_stores)
+            character_resulted = Character.objects.filter(_id=character)
+            character_resulted.update(stories=characters_stores)
 
         self.progress_bar.update(100)      
                     
