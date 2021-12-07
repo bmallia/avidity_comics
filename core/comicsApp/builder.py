@@ -126,7 +126,7 @@ class CharacterBuilder(Builder):
                     thumbnail = result['thumbnail']
                     path = f"{thumbnail['path']}/portrait_small.{thumbnail['extension']}"
                     characters_stores.append({"url": path, "name": result['name']})
-        if self.characterModel:        
+        if self.characterModel:      
             self.characterModel.update(stories=characters_stores)
 
         self.progress_bar.update(100)      

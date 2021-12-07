@@ -75,12 +75,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-   
-       'default': {
-           'ENGINE': 'djongo',
-           'NAME':'comicsdb',
-       }
-   }
+   'default': {
+        'ENGINE': 'djongo',
+        'NAME':'comicsdb',
+        "CLIENT": {
+            "host": "db",
+            "port": 27017,
+            "username": "admin",
+            "password": "admin",
+            "authSource": "admin",
+        },
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
