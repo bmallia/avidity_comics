@@ -79,6 +79,13 @@ DATABASES = {
        'default': {
            'ENGINE': 'djongo',
            'NAME':'comicsdb',
+           'HOST': 'db',
+           'USER': 'bruno',
+           'PASSWORD': 'bruno',
+           'PORT': '27018',
+           'TEST': {
+               'NAME': 'comicsdb_test'
+           }
        }
    }
 

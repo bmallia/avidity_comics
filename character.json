@@ -1,0 +1,13 @@
+[
+{
+    "model": "comicsApp.character",
+    "pk": 2,
+    "fields": {
+        "name": "Hulk",
+        "description": "",
+        "attributionText": "",
+        "stories": "[]",
+        "thumbnail": ""
+    }
+}
+]

@@ -6,7 +6,7 @@ class Character(models.Model):
     class Meta:
         db_table = 'character'
 
-    _id=models.ObjectIdField()
+    _id=models.BigIntegerField(primary_key=True, null=False)
 
     name=models.CharField(max_length=255, default="")
 

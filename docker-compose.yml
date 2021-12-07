@@ -2,16 +2,39 @@ version: "3.8"
 
 services:
   db:
-    image: mongo
-    environment:
-      - POSTGRES_USER=bruno
-      - POSTGRES_PASSWORD=bruno
-      - POSTGRES_DB=comicsdb
+    ##image: mongo
+    build: ./mongodb/.
+    container_name: mongodb
+    command: [--auth]
     volumes:
-      - postgres_data:/var/lib/postgres/data/
+      ##usuário vai precisar configurar
+      - mongodbdata:/data/db
     ports:
-      - 5433:5432
+      - "27018:27017"
+    networks:
+      - default-network
+
+  web:
+    build: .
+    ##command: python manage.py runserver 0.0.0.0:8080
+    command: python manage.py populatecomics Thor
+    environment:
+      - COMICS_PUBLIC_KEY=e0756da495edd82c76b7fce7fde66520
+      - COMICS_PRIVATE_KEY=b879fadc75fa7f1513d65797134ed8cb431b564d
+    volumes:
+      - mongodbdata:/data/db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - default-network
    
   
 volumes:
-  postgres_data:   
+  mongodbdata:   
+
+networks:
+  default-network:
+    driver: bridge
+    

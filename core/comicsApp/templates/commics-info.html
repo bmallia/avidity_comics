@@ -9,35 +9,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Marvel's product</title>
         <style>
-            .cover img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                overflow: hidden;
+            div.space {
+                height:110px;
             }
-
-            .ctnFlex{
-                display: flex;
-                justify-content: space-between;
+            .description {
+                padding-left: 20px;
+                margin: 5px;
             }
-
-            div.op1 {
-                width: 25%;
-                display: inline-block;
-                font-size: 2vw;
-                text-align: center;
-                padding: 5vw 0vw 5vw 0vw;
-                min-width:40vw;
-            }
-        
-            div.op2 {
-                width: 75%;
-                display: inline-block;
-                margin-right: 0vw;
-                font-size: 2vw;
-                text-align: center;
-                padding: 5vw 0vw 5vw 0vw;
-                min-width:40vw;
+            .title {
+                padding: 5px;
             }
         </style>
     
@@ -45,32 +25,35 @@
    
    <body>
        <h1>My favorite hero!</h1>
-        {% for char in characters %}
-            <h3>Hero's name:{{char.name}}</h3>
-            <div class="ctnFlex" >
-                <div class="op1">
-                    
-                    <span><img src="{{char.thumbnail}}"/> </span> 
-                </div>
-                <div class="op2" >
-                    <p><b>The story's description:</b> {{char.description}}</p>
-                </div>    
-
-            </div>
-
-           
-
-            {% for story in char.stories %}
-                    
-                <div class="cover">
-                    <span><img src="{{story.resourceURI}}/portrait_medium" alt="{{story.name}}"/> </span> 
-                </div>
-                    
-            {% endfor %}
+       {% for char in data %} 
             
-            <p><b>Marvel attribution text:</b> {{char.attributionText}}  </p>
+            <p>
+                <div class="title">   
+                    <img src="{{char.thumbnail}}" align="left" height="225" width="150"/> 
+                </div>
 
-        {% endfor %}
-  </body>
+                <h2><span class="title"> Hero's name: {{char.name}} <span></h2>
+                <div class="description" >
+                    <b>The story's description:</b> {{char.description}}
+                </div>
+                <div class="space">
+
+                </div>
+
+
+            </p>
+
+            <h2><span class="title">names and pictures of the characters that feature in the store: <span></h2>
+            <table>   
+                {% for story in char.stories %}
+                    <tr>
+                        <td><img src="{{story.url}}" /><td>    
+                        <td>{{story.name}}</td>
+                    </tr>
+                {% endfor %}            
+            </table>
+        {% endfor %}        
+
+   </body>
 
 </html>
