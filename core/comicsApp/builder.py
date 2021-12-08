@@ -97,8 +97,11 @@ class CharacterBuilder(Builder):
         """
             Add stories ids from character searched
         """
+        print(f"Finding stories for {self.stories}")
+
         for storyid in self.stories:
             url = f"https://gateway.marvel.com/v1/public/stories/{storyid}?apikey={AuthSingleton().public_key}&ts={AuthSingleton().timestamp}&hash={AuthSingleton().hash}"
+            
             res = requests.get(url)
 
             if res.status_code == 200: 
@@ -115,6 +118,8 @@ class CharacterBuilder(Builder):
         """  Store the characters stories image """
         characters_stores = []
 
+        print(f"store the characters {self.character_ids}")
+        
         for character in self.character_ids:
             url = f"http://gateway.marvel.com/v1/public/characters/{character}?apikey={AuthSingleton().public_key}&ts={AuthSingleton().timestamp}&hash={AuthSingleton().hash}"
             res = requests.get(url)
